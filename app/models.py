@@ -38,11 +38,13 @@ class Course(models.Model):
     )
 
     featured_image = models.ImageField(upload_to="featuredimg",null=True)
+    qr_code = models.ImageField(upload_to="featuredimg",null=True)
     title = models.CharField(max_length=500)
     created_at = models.DateField(auto_now_add=True)
     product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
     category = models.ForeignKey(Categories,on_delete=models.CASCADE)
     description = models.TextField()
+    monthly = models.IntegerField(null=True,default=0)
     price = models.IntegerField(null=True,default=0)
     discount = models.IntegerField(null=True)
     disk_space = models.CharField(max_length=100,null=True,)
