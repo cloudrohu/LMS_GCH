@@ -19,9 +19,14 @@ client = razorpay.Client(auth=(KEY_ID,KEY_SECRET))
 def BASE(request):
     return render(request,'base.html', )
 
+
+def order_received(request):
+    return render(request,'Main/order_received.html', )
+
+
 def HOME(request):
     cotegory = Categories.objects.all().order_by('id')[0:7]
-    course = Course.objects.filter(status = 'PUBLISH').order_by('-id')
+    course = Course.objects.filter(status = 'PUBLISH').order_by('id')[0:15]
 
     context = {
         'cotegory' : cotegory,
@@ -51,6 +56,8 @@ def SINGLE_COURS(request):
     course = Course.objects.filter(status = 'PUBLISH').order_by('-id')
     FreeCourse_count = Course.objects.filter(price = 0).count()
     PaidCourse_count = Course.objects.filter(price__gte=1).count()
+    related_products = Course.objects.filter(category=course.categories).exclude(id=id)[:4]
+    
 
 
     context = {
@@ -58,6 +65,7 @@ def SINGLE_COURS(request):
         'course' : course,
         'FreeCourse_count': FreeCourse_count,
         'PaidCourse_count': PaidCourse_count,
+        'related_products': related_products,
     }
     return render(request, 'Main/single_course.html',context)
 
