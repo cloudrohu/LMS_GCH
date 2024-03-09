@@ -26,7 +26,7 @@ def order_received(request):
 
 def HOME(request):
     cotegory = Categories.objects.all().order_by('id')[0:7]
-    course = Course.objects.filter(status = 'PUBLISH').order_by('id')[0:15]
+    course = Course.objects.filter(status = 'PUBLISH').order_by('?')[0:30]
 
     context = {
         'cotegory' : cotegory,
